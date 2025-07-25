@@ -1,6 +1,6 @@
 package com.ciber.rrhhservice.infrastructure.persistence.usuario.entity;
 
-import com.ciber.rrhhservice.shared.Auditoria;
+import com.ciber.rrhhservice.infrastructure.persistence.shared.Auditoria;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Set;

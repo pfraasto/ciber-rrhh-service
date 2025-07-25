@@ -1,4 +1,4 @@
-package com.ciber.rrhhservice.shared;
+package com.ciber.rrhhservice.infrastructure.persistence.shared;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
