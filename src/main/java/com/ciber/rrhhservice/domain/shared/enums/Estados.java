@@ -1,4 +1,4 @@
-package com.ciber.rrhhservice.application.usuario.enums;
+package com.ciber.rrhhservice.domain.shared.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -7,4 +7,5 @@ public class UsuarioRolModel {
     private Long id;
     private String nombre;
     private String descripcion;
+    private String estado;
 }

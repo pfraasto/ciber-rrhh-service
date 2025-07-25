@@ -46,8 +46,8 @@ public class Init {
 
         //Guardar nuevo usuario con rol
         UsuarioModel usuarioModel = new UsuarioModel();
-        usuarioModel.setUsername(new Username("prueba 2"));
-        usuarioModel.setEmail(new Email("prueba2@gmail.com"));
+        usuarioModel.setUsername(new Username("prueba 4"));
+        usuarioModel.setEmail(new Email("prueba4gmail.com"));
         usuarioModel.setPasswordHash("abc*****");
         usuarioModel.setNombre("Prueba de usuario");
         usuarioModel.setApellido("Apellido de prueba");

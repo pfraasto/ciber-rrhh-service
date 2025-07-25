@@ -4,7 +4,7 @@ import lombok.Value;
 
 @Value
 public class Email {
-    private final String value;
+    String value;
 
     public Email(String value) {
         if (value == null || value.isBlank()) {

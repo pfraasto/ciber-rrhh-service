@@ -1,6 +1,6 @@
-package com.ciber.rrhhservice.application.usuario.mapper;
+package com.ciber.rrhhservice.infrastructure.mapper;
 
-import com.ciber.rrhhservice.application.usuario.enums.Estados;
+import com.ciber.rrhhservice.domain.shared.enums.Estados;
 import com.ciber.rrhhservice.domain.usuario.model.UsuarioModel;
 import com.ciber.rrhhservice.domain.usuario.model.UsuarioRolModel;
 import com.ciber.rrhhservice.domain.usuario.valueobject.Email;
@@ -27,6 +27,16 @@ public interface UsuarioMapper {
     @Mapping(target = "roles", expression = "java(mapRoles(entity.getRoles()))")
     UsuarioModel usuarioMap(UsuarioEntity entity);
 
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "username", expression = "java(model.getUsername().getValue())")
+    @Mapping(target = "email", expression = "java(model.getEmail().getValue())")
+    @Mapping(target = "passwordHash", source = "passwordHash")
+    @Mapping(target = "nombre", source = "nombre")
+    @Mapping(target = "apellido", source = "apellido")
+    @Mapping(target = "activo", expression = "java(mapEstado(model.getEstado()))")
+    @Mapping(target = "roles", ignore = true)  // roles se manejan aparte
+    UsuarioEntity usuarioModelToEntity(UsuarioModel model);
+
     // Metodo auxiliar para mapear roles
     default Set<UsuarioRolModel> mapRoles(Set<UsuarioRolEntity> usuarioRoles) {
         if (usuarioRoles == null) return Collections.emptySet();
@@ -39,18 +49,6 @@ public interface UsuarioMapper {
             return model;
         }).collect(Collectors.toSet());
     }
-
-
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "username", expression = "java(model.getUsername().getValue())")
-    @Mapping(target = "email", expression = "java(model.getEmail().getValue())")
-    @Mapping(target = "passwordHash", source = "passwordHash")
-    @Mapping(target = "nombre", source = "nombre")
-    @Mapping(target = "apellido", source = "apellido")
-    @Mapping(target = "activo", expression = "java(mapEstado(model.getEstado()))")
-    @Mapping(target = "roles", ignore = true)
-        // roles se manejan aparte
-    UsuarioEntity usuarioModelToEntity(UsuarioModel model);
 
     default boolean mapEstado(String estado) {
         return Estados.obtenerValor(Estados.valueOf(estado));
