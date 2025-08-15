@@ -28,7 +28,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto request) {
-        SeguridadModel seguridad = seguridadService.autenticacion(request.getUsername(), request.getPassword());
+        SeguridadModel seguridad = seguridadService.autenticacion(request.username(), request.password());
         return ResponseEntity.ok(
                 buildLoginResponse(
                         seguridad.getToken(),
@@ -39,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public ResponseEntity<LoginResponseDto> refresh(@Valid @RequestBody RefreshTokenRequestDto request) {
-        SeguridadModel seguridad = seguridadService.refrescar(request.getRefreshToken());
+        SeguridadModel seguridad = seguridadService.refrescar(request.refreshToken());
         return ResponseEntity.ok(
                 buildLoginResponse(
                         seguridad.getToken(),

@@ -86,6 +86,11 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>0.12.6</version>
         </dependency>
+        <dependency>
+            <groupId>com.error</groupId>
+            <artifactId>spring-error-handler</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

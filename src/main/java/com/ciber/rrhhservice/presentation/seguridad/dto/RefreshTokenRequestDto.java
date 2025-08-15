@@ -1,11 +1,9 @@
 package com.ciber.rrhhservice.presentation.seguridad.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
 
-
-@Data
-public class RefreshTokenRequestDto {
-    @NotBlank(message = "El refresh token es obligatorio")
-    private String refreshToken;
+public record RefreshTokenRequestDto(
+        @NotBlank(message = "El refresh token es obligatorio")
+        String refreshToken
+) {
 }

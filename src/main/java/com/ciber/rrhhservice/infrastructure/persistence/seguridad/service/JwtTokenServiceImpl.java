@@ -10,14 +10,15 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,6 +67,15 @@ public class JwtTokenServiceImpl implements TokenService {
         }
     }
 
+    @Override
+    public UserDetails crearUserDetailsDesdeToken(String token) {
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(extraerUsuario(token))
+                .password("")
+                .authorities(extraerRoles(token))
+                .build();
+    }
+
     // --- Métodos privados ---
     private Map<String, Object> construirClaimsDesdeUsuario(UsuarioModel usuario) {
         Map<String, Object> claims = new HashMap<>();
@@ -103,5 +113,15 @@ public class JwtTokenServiceImpl implements TokenService {
 
     private <T> T extraerClaim(String token, Function<Claims, T> resolver) {
         return resolver.apply(extraerTodosLosClaims(token));
+    }
+
+    @SuppressWarnings("unchecked")
+    private Collection<GrantedAuthority> extraerRoles(String token) {
+        List<String> authorities = extraerClaim(token, claims ->
+                (List<String>) claims.get("roles"));
+
+        return authorities.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 }
